@@ -5,7 +5,6 @@ import NewMeetupForm from '../components/meetups/NewMeetupForm';
 
 const NewMeetup = () => {
   const addMeetupHandler = async (enteredMeetupData: Meetup) => {
-    console.log('meh1');
     
     const response = await fetch('/api/new-meetup', {
       method: 'POST',

@@ -5,10 +5,9 @@ import { username, password } from '../../private/keys';
 // /api/new-meetup
 // POST --> /api/new-meetup
 
-export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     const data = req.body;
-    console.log('hey');
 
     const client = await MongoClient.connect(
       `mongodb+srv://${username}:${password}@finaltrycluster.dcie8yz.mongodb.net/meetups?retryWrites=true&w=majority`
@@ -25,3 +24,5 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(201).json({ message: 'meetup inserted' });
   }
 };
+
+export default handler
