@@ -14,6 +14,7 @@ type MeetupsCollection = {
   title: string;
   image: string;
   description: string;
+  address?: string;
 };
 
 const MeetupDetails = (props: MeetupDetailsProps) => {
@@ -77,7 +78,13 @@ export async function getStaticProps<GetStaticProps>(
 
   return {
     props: {
-      meetupData: JSON.parse(JSON.stringify(selectedMeetup)),
+      // meetupData: JSON.parse(JSON.stringify(selectedMeetup)),
+      meetupData: {
+        id: selectedMeetup?._id,
+        image: selectedMeetup?.image,
+        title: selectedMeetup?.title,
+        address: selectedMeetup?.address
+      }
     },
   };
 }
