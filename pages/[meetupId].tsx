@@ -78,13 +78,13 @@ export async function getStaticProps<GetStaticProps>(
 
   return {
     props: {
-      // meetupData: JSON.parse(JSON.stringify(selectedMeetup)),
-      meetupData: {
-        id: selectedMeetup?._id,
+      meetupData: JSON.parse(JSON.stringify(selectedMeetup)),
+      /* meetupData: {
+        id: selectedMeetup?._id.toString(),
         image: selectedMeetup?.image,
         title: selectedMeetup?.title,
         address: selectedMeetup?.address
-      }
+      } */
     },
   };
 }
