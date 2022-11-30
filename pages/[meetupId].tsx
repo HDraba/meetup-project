@@ -56,7 +56,7 @@ export async function getStaticPaths() {
     }),
   };
 }
-
+ 
 // have to use getStaticPaths as well when using getStaticProps and a dynamic page
 export async function getStaticProps<GetStaticProps>(
   context: GetStaticPropsContext
