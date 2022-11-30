@@ -15,6 +15,8 @@
 
 .control input,
 .control textarea {
+  color: black;
+  text-decoration: none;
   display: block;
   font: inherit;
   border-radius: 4px;
@@ -22,7 +24,6 @@
   padding: 0.25rem;
   width: 100%;
   background-color: #ccc;
-  color: black;
 }
 
 .actions {
