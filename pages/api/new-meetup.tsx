@@ -5,13 +5,13 @@ import { username, password } from '../../private/keys';
 // /api/new-meetup
 // POST --> /api/new-meetup
 
+export const mongoUrl = 'mongodb://127.0.0.1:27017/meetups';
+
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     const data = req.body;
 
-    const client = await MongoClient.connect(
-      `mongodb+srv://${username}:${password}@finaltrycluster.dcie8yz.mongodb.net/meetups?retryWrites=true&w=majority`
-    );
+    const client = await MongoClient.connect(mongoUrl);
 
     const db = client.db();
 
@@ -25,4 +25,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default handler
+export default handler;
