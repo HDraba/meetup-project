@@ -20,10 +20,10 @@ const MeetupDetails = (props: MeetupDetailsProps) => {
   return (
     <>
       <MeetupDetail
-        imgUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1600px-Stadtbild_M%C3%BCnchen.jpg?20130611211153"
-        title="some first meetup"
-        address="some sddress"
-        description="desc"
+        imgUrl={props.meetupData.image}
+        title={props.meetupData.title}
+        address={props.meetupData.address}
+        description={props.meetupData.description}
       />
     </>
   );
@@ -56,33 +56,28 @@ export async function getStaticPaths() {
     }),
   };
 }
- 
+
 // have to use getStaticPaths as well when using getStaticProps and a dynamic page
 export async function getStaticProps<GetStaticProps>(
   context: GetStaticPropsContext
 ) {
-  const meetupId = context.params!.meetupId;
+  const meetupId = context.params!.meetupId!;
+  const stringId = meetupId.toString();
 
   const client = await MongoClient.connect(mongoUrl);
   const db: Db = client.db();
   const meetupsCollection: Collection<MeetupsCollection> =
     db.collection('meetups');
 
-  const query = { _id: meetupId };
-  const selectedMeetup = meetupsCollection.findOne(query);
+  const selectedMeetup = await meetupsCollection.findOne({
+    _id: new ObjectId(stringId),
+  });
 
   client.close();
 
   return {
     props: {
-      meetupData: {
-        image:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1600px-Stadtbild_M%C3%BCnchen.jpg?20130611211153',
-        id: { meetupId },
-        title: 'some first meetup',
-        address: 'some street, 55555 city',
-        description: 'descriptive',
-      },
+      meetupData: JSON.parse(JSON.stringify(selectedMeetup)),
     },
   };
 }
